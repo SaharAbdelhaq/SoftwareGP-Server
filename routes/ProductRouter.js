@@ -13,5 +13,4 @@ router.post("/createProduct", createProduct);
 router.get("/getProducts/:type", getProductByType);
 router.get("/getProductById/:id", getProductById);
 router.get("/getNewProducts", getNewProducts);
-
 module.exports = router;
