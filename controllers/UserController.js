@@ -1,10 +1,27 @@
 const User = require("../models/UserModel");
+const Product = require("../models/ProductModel");
+const Cart = require("../models/CartModel");
 // create gift
 // add Gift to cart
-// get UserCart
 
+// get UserCart
+// completeOrder
+async function completeOrder(req, res) {
+  // post name  info
+}
+
+/////////////
 async function getUserCart(req, res) {
-  const user = await User.findById("656366bdbce6cde322f75d88");
+  //   const user = await User.findById("656366bdbce6cde322f75d88");
+  const { id } = req.params;
+
+  const userCart = await User.find(id);
+
+  return res.status(200).json({
+    Message: " user cart",
+
+    userCart,
+  });
 }
 
 async function AddProductToCart(req, res) {
@@ -21,25 +38,12 @@ async function AddProductToCart(req, res) {
 }
 
 async function createGift(req, res) {
-  const results = [];
   try {
-    const products = req.body.products;
-    for (const productData of products) {
-      const { type, name, description, price } = productData;
-      const newProduct = new Product({
-        type,
-        name,
-        description,
-        price,
-      });
+    const user = await User.findById("656366bdbce6cde322f75d88");
+    const { gift } = req.body; // array destructring
 
-      const result = await newProduct.save();
-      results.push(result);
-    }
-    return res.status(201).json({
-      results,
-      message: "Gift Created Successfully",
-    });
+    user.cart = [...user.cart, gift];
+    await user.save();
   } catch (error) {
     console.error("Error creating gift:", error);
     return res.status(500).json({ message: "Internal Server Error" });
@@ -49,4 +53,6 @@ async function createGift(req, res) {
 module.exports = {
   AddProductToCart,
   createGift,
+  getUserCart,
+  completeOrder,
 };
