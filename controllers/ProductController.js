@@ -1,5 +1,5 @@
 const Product = require("../models/ProductModel");
-
+const User = require("../models/UserModel");
 async function getProducts(req, res) {
   const Products = await Product.find();
   return res.status(200).json({

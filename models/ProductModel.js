@@ -10,6 +10,7 @@ const ProductSchema = new mongoose.Schema({
   temperature: String,
   images: Array,
   dateAdded: Date,
+  inCart: Boolean,
 });
 
 const Product = mongoose.model("Product", ProductSchema);

@@ -13,4 +13,11 @@ router.get("/signin", signin);
 router.post("/logout", logout);
 // router.get("/getNewProducts", getNewProducts);
 
+createGift,
+  AddProductToCart,
+} = require("../controllers/UserController");
+
+router.post("/createGift", createGift);
+router.post("/addProductToCart/:productID", AddProductToCart);
+
 module.exports = router;
